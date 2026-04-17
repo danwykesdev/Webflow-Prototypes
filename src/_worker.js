@@ -58,11 +58,14 @@ export default {
     }
 
     const contentType = getContentType(path);
+    const ext = path.split('.').pop().toLowerCase();
+    const isStatic = ['css', 'js', 'png', 'jpg', 'jpeg', 'gif', 'svg', 'webp', 'ico', 'woff', 'woff2', 'ttf', 'eot', 'mp4', 'webm'].includes(ext);
+    const cacheControl = isStatic ? 'public, max-age=3600' : 'no-cache, no-store, must-revalidate';
 
     return new Response(object.body, {
       headers: {
         'Content-Type': contentType,
-        'Cache-Control': 'public, max-age=3600',
+        'Cache-Control': cacheControl,
         'Access-Control-Allow-Origin': '*',
       },
     });
