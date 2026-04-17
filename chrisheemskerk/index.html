@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Innovation Scorecard™️</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Finsweet Attributes Modal -->
+
+</head>
+
+<body class="page">
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav__container">
+            <ul class="nav__list">
+                <li class="nav__item"><a href="#" class="nav__link">About</a></li>
+                <li class="nav__item"><a href="#" class="nav__link">Speaking</a></li>
+                <li class="nav__item"><a href="#" class="nav__link">Consulting</a></li>
+                <li class="nav__item"><a href="#" class="nav__link">Reviews</a></li>
+                <li class="nav__item"><a href="#" class="nav__link">Blog</a></li>
+                <li class="nav__item"><a href="#" class="nav__link">Media</a></li>
+                <li class="nav__item">
+                    <a href="#" id="openModalBtn" class="nav__link nav__link--cta" aria-label="open modal">The
+                        Innovation Scorecard™️</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div id="modalOverlay" class="modal__overlay" aria-hidden="true" aria-label="modal background"></div>
+        <button id="modalCloseBtn" class="modal__close" aria-label="close modal">Close</button>
+        <div class="modal__content">
+
+            <div class="modal__grid">
+                <!-- PDF Preview Section -->
+                <div class="modal__preview">
+                    <!-- Using embed for PDF preview. Fallback link provided. -->
+                    <object data="innovation-scorecard-preview.pdf#view=Fit" type="application/pdf" width="100%"
+                        height="100%">
+                        <p>Your browser does not support PDFs. <a href="innovation-scorecard-preview.pdf">Download the
+                                preview</a>.</p>
+                    </object>
+                </div>
+
+                <!-- Lead Capture Form Section -->
+                <div class="modal__form-container">
+                    <h2 class="modal__heading">Unlock Full Access</h2>
+                    <p class="modal__description">Enter your details to download the full Innovation Scorecard™️.</p>
+
+                    <form id="leadCaptureForm" class="form" action="https://app.kit.com/forms/9338112/subscriptions"
+                        method="POST">
+                        <div class="form__group">
+                            <label for="firstName" class="form__label">First Name *</label>
+                            <input type="text" id="firstName" name="first_name" class="form__input" required>
+                        </div>
+                        <div class="form__group">
+                            <label for="lastName" class="form__label">Last Name *</label>
+                            <input type="text" id="lastName" name="fields[last_name]" class="form__input" required>
+                        </div>
+                        <div class="form__group">
+                            <label for="companyName" class="form__label">Company Name *</label>
+                            <input type="text" id="companyName" name="fields[company_name]" class="form__input"
+                                required>
+                        </div>
+                        <div class="form__group">
+                            <label for="companyEmail" class="form__label">Company Email *</label>
+                            <input type="email" id="companyEmail" name="email_address" class="form__input" required
+                                placeholder="name@company.com">
+                            <div id="emailError" class="form__error"></div>
+                        </div>
+
+                        <button type="submit" class="form__submit">Get the Scorecard</button>
+                    </form>
+
+                    <!-- Success Message / Download Link (Hidden by default) -->
+                    <div id="formSuccess" class="form__success" style="display: none;">
+                        <p class="form__success-message">Thank you! Your access is approved.</p>
+                        <a href="Copy to webflow/PREVIEW of The Innovation Scorecard V4.0 (2026) - Google Slides.pdf"
+                            target="_blank" class="form__download-btn" download>Download Full Scorecard</a>
+                        <p class="form__note">Note: This is pointing to the preview PDF as placeholder for the full
+                            version.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="script.js" nonce="MTQxMzI4Mjc0MiwxNjE5NTM2NzY2"></script>
+</body>
+
+</html>

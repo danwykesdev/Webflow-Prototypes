@@ -1,0 +1,387 @@
+/* Variables & Reset */
+:root {
+    --color-bg: #000000;
+    --color-text: #ffffff;
+    --color-text-muted: #aaaaaa;
+    --color-accent: #ffffff;
+    --color-border: #333333;
+    --color-input-bg: #111111;
+    --color-error: #ff4d4d;
+    --color-success: #00cc66;
+
+    --font-main: 'Inter', sans-serif;
+
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 4rem;
+
+    --border-radius: 4px;
+    --transition: 0.3s ease;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-main);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition);
+}
+
+ul {
+    list-style: none;
+}
+
+/* =========================================
+   Navigation
+   ========================================= */
+.nav {
+    padding: var(--spacing-md) var(--spacing-lg);
+    width: 100%;
+    position: relative;
+    z-index: 10;
+}
+
+.nav__container {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    /* Centered as per typical simple navs, or user preference? "Simple" often implies centered or spread. Defaulting to center for clean look. */
+}
+
+.nav__list {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.nav__link {
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0.7;
+}
+
+.nav__link:hover {
+    opacity: 1;
+}
+
+.nav__link--cta {
+    opacity: 1;
+    border: 1px solid var(--color-border);
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.nav__link--cta:hover {
+    background-color: var(--color-text);
+    color: var(--color-bg);
+    border-color: var(--color-text);
+}
+
+/* =========================================
+   Modal (Finsweet Attributes)
+   ========================================= */
+/* The modal wrapper */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    display: none;
+    /* Hidden by default, FS Attributes toggles display: flex usually, or we control classes */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition);
+}
+
+.modal.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Open state handled by attributes or custom class if needed, 
+   but Finsweet usually toggles display. We'll add a visible class for transition support if desired, 
+   but for now essentially: */
+.modal.is-visible {
+    /* If we were doing custom JS, but FS Attributes might just use display. Let's rely on FS Attributes which usually toggles display only. To fade, we might need custom CSS hooking into FS callbacks if standard display toggle isn't enough. For simplicity: simple display toggle first. */
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Note: finsweet attributes usually sets display: flex/block. 
+   We will ensure the element starts hidden. */
+
+.modal__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
+}
+
+.modal__content {
+    position: relative;
+    background-color: #050505;
+    width: 90%;
+    max-width: 1100px;
+    height: 90vh;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    z-index: 101;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.modal__close {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid var(--color-border);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    color: var(--color-text);
+    cursor: pointer;
+    z-index: 1000;
+    font-family: var(--font-main);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: var(--transition);
+}
+
+.modal__close:hover {
+    background-color: var(--color-text);
+    color: var(--color-bg);
+}
+
+.modal__grid {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    grid-template-rows: 100%;
+    height: 100%;
+}
+
+.modal__preview {
+    background-color: #1a1a1a;
+    border-right: 1px solid var(--color-border);
+    border-bottom: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.modal__preview object {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.modal__form-container {
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto;
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.modal__form-container::-webkit-scrollbar {
+    display: none;
+}
+
+.modal__heading {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+    letter-spacing: -0.02em;
+}
+
+.modal__description {
+    color: var(--color-text-muted);
+    margin-bottom: var(--spacing-md);
+    font-size: 0.95rem;
+}
+
+/* =========================================
+   Form
+   ========================================= */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.form__group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form__label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+}
+
+.form__input {
+    background-color: var(--color-input-bg);
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+    padding: 0.8rem;
+    border-radius: var(--border-radius);
+    font-family: var(--font-main);
+    font-size: 0.95rem;
+    transition: var(--transition);
+}
+
+.form__input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    background-color: #1a1a1a;
+}
+
+.form__submit {
+    margin-top: var(--spacing-sm);
+    background-color: var(--color-text);
+    color: var(--color-bg);
+    border: none;
+    padding: 1rem;
+    font-weight: 600;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.form__submit:hover {
+    background-color: #dddddd;
+    transform: translateY(-1px);
+}
+
+.form__error {
+    color: var(--color-error);
+    font-size: 0.8rem;
+    height: 1rem;
+    /* Reserve space */
+}
+
+/* Success State */
+.form__success {
+    text-align: center;
+    animation: fadeIn 0.5s ease;
+}
+
+.form__success-message {
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-success);
+}
+
+.form__download-btn {
+    display: inline-block;
+    background-color: var(--color-success);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+}
+
+.form__download-btn:hover {
+    filter: brightness(1.1);
+}
+
+.form__note {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================================
+   Copy Button
+   ========================================= */
+
+
+/* =========================================
+   Mobile Responsiveness
+   ========================================= */
+@media (max-width: 900px) {
+    .modal__close {
+        top: 0.5rem;
+        right: 0.5rem;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.75rem;
+        background-color: rgba(0, 0, 0, 0.8);
+        /* Stronger contrast */
+    }
+
+    .modal__content {
+        height: 85vh;
+        /* Taller usage of screen */
+        width: 92%;
+        margin-top: 2rem;
+        /* Less top margin needed with tight close button */
+    }
+
+    .modal__grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: 250px 1fr;
+        /* Fixed height for preview */
+    }
+
+    .modal__preview {
+        border-right: none;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .modal__form-container {
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+
+    .modal__heading {
+        font-size: 1.4rem;
+    }
+}
