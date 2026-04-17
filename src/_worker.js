@@ -23,9 +23,17 @@ export default {
     }
 
     // ── Check authentication ────────────────────────────
-    const authenticated = await isAuthenticated(request, env);
-    if (!authenticated) {
-      return loginPage();
+    // Only lock the root gallery and project list. 
+    // Subdirectories (individual prototypes) are public.
+    const requiresAuth = url.pathname === '/' || 
+                         url.pathname === '/index.html' || 
+                         url.pathname === '/projects.json';
+
+    if (requiresAuth) {
+      const authenticated = await isAuthenticated(request, env);
+      if (!authenticated) {
+        return loginPage();
+      }
     }
 
     // ── Canonical redirect: /index.html → / ────────────
