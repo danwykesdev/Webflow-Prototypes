@@ -1,6 +1,7 @@
 name = "prototype-host"
 main = "src/_worker.js"
 compatibility_date = "2024-01-01"
+account_id = "f208aa20bfcf583465999a026900910e"
 
 [[r2_buckets]]
 binding = "BUCKET"

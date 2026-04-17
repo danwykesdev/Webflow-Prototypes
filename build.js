@@ -78,7 +78,7 @@ let uploaded = 0;
 for (const file of files) {
   const key = path.relative(DIST, file).replace(/\\/g, '/');
   try {
-    execSync(
+    const result = execSync(
       `npx wrangler r2 object put ${BUCKET}/${key} --file "${file}"`,
       { stdio: 'pipe' }
     );
@@ -86,7 +86,8 @@ for (const file of files) {
     uploaded++;
   } catch (err) {
     console.error(`  ✗ Failed: ${key}`);
-    console.error(err.stderr?.toString() || err.message);
+    console.error('  stdout:', err.stdout?.toString() || '(empty)');
+    console.error('  stderr:', err.stderr?.toString() || '(empty)');
     process.exit(1);
   }
 }
