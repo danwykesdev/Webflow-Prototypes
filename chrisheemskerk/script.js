@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    console.log("Script loaded");
     // =========================================
     // Custom Modal Logic
     // =========================================
