@@ -1,0 +1,9 @@
+{
+  "name": "webflow-prototypes",
+  "private": true,
+  "scripts": {
+    "build": "node build.js",
+    "dev": "npx wrangler pages dev dist",
+    "preview": "python3 -m http.server 8080"
+  }
+}
