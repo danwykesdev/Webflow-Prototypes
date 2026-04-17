@@ -28,16 +28,33 @@ export default {
       return loginPage();
     }
 
+    // ── Canonical redirect: /index.html → / ────────────
+    if (url.pathname === '/index.html') {
+      return Response.redirect(new URL('/', url).href, 301);
+    }
+
     // ── Serve from R2 ───────────────────────────────────
     let path = url.pathname.slice(1); // Remove leading slash
+
+    // Normalise trailing slash → directory index
     if (!path || path.endsWith('/')) {
       path = path + 'index.html';
     }
 
-    const object = await env.BUCKET.get(path);
+    let object = await env.BUCKET.get(path);
+
+    // If not found and no extension, try as a directory index
+    if (!object && !path.includes('.')) {
+      object = await env.BUCKET.get(path + '/index.html');
+    }
 
     if (!object) {
-      return new Response('File not found: ' + path, { status: 404 });
+      // Try root 404 page, else plain text
+      const notFound = await env.BUCKET.get('404.html');
+      return new Response(notFound ? notFound.body : 'Not found: ' + path, {
+        status: 404,
+        headers: { 'Content-Type': notFound ? 'text/html; charset=utf-8' : 'text/plain' },
+      });
     }
 
     const contentType = getContentType(path);
